@@ -1,13 +1,13 @@
 import threading
-from Queue import Queue
+from multiprocessing import Queue
 import paramiko
 url = ''
-which_command = raw_input("Which mode? set-inform, info, or set-default [info]: ")
+which_command = input("Which mode? set-inform, info, or set-default [info]: ")
 if which_command == "set-inform":
-    url = raw_input("Enter your set-inform URL [http://unifi.rappahannockit.com:8080/inform]: ")
-username_ = raw_input("Enter device username [ubnt]: ")
-password_ = raw_input("Enter device password [ubnt]: ")
-subnet_ = raw_input("Enter subnet [192.168.1.0]: ")
+    url = input("Enter your set-inform URL [http://unifi.rappahannockit.com:8080/inform]: ")
+username_ = input("Enter device username [ubnt]: ")
+password_ = input("Enter device password [ubnt]: ")
+subnet_ = input("Enter subnet [192.168.1.0]: ")
 
 if url != '':
     url = url
@@ -44,8 +44,8 @@ for i in ips:
     hostnames.append(SUBNET + str(i))
 
 def info(hostname, output_q):
-    print "Starting..."
-    print hostname
+    print("Starting...")
+    print(hostname)
     try:
         client = paramiko.SSHClient()
         client.load_system_host_keys()
@@ -54,15 +54,15 @@ def info(hostname, output_q):
         client.connect(hostname, port=PORT, username=USERNAME, password=PASSWORD)
 
         stdin, stdout, stderr = client.exec_command("mca-cli <<EOF\ninfo\nquit\nEOF")
-        print stdout.read()
+        print(stdout.read())
     except:
         client.close()
     finally:
         client.close()
 
 def set_default(hostname, output_q):
-    print "Starting..."
-    print hostname
+    print("Starting...")
+    print(hostname)
     try:
         client = paramiko.SSHClient()
         client.load_system_host_keys()
@@ -71,14 +71,14 @@ def set_default(hostname, output_q):
         client.connect(hostname, port=PORT, username=USERNAME, password=PASSWORD)
 
         stdin, stdout, stderr = client.exec_command("mca-cli <<EOF\nset-default\nquit\nEOF")
-        print stdout.read()
+        print(stdout.read())
     except:
         client.close()
     finally:
         client.close()
 def set_inform(hostname, output_q):
-    print "Starting..."
-    print hostname
+    print("Starting...")
+    print(hostname)
     try:
         client = paramiko.SSHClient()
         client.load_system_host_keys()
@@ -87,7 +87,7 @@ def set_inform(hostname, output_q):
         client.connect(hostname, port=PORT, username=USERNAME, password=PASSWORD)
 
         stdin, stdout, stderr = client.exec_command("mca-cli <<EOF\nset-inform %s\nquit\nEOF" % (COMMAND))
-        print stdout.read()
+        print(stdout.read())
     except:
         client.close()
     finally:
@@ -121,7 +121,7 @@ if __name__ == "__main__":
     while not output_q.empty():
         my_dict = output_q.get()
         for k, val in my_dict.iteritems():
-            print k
-            print val
+            print(k)
+            print(val)
 
-wait = raw_input("Press any key to exit...")
+wait = input("Press any key to exit...")
