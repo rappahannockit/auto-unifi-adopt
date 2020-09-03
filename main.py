@@ -4,7 +4,7 @@ import paramiko
 url = ''
 which_command = raw_input("Which mode? set-inform, info, or set-default [info]: ")
 if which_command == "set-inform":
-    url = raw_input("Enter your set-inform URL [http://p01.hostifi.net:8080/inform]: ")
+    url = raw_input("Enter your set-inform URL [http://unifi.rappahannockit.com:8080/inform]: ")
 username_ = raw_input("Enter device username [ubnt]: ")
 password_ = raw_input("Enter device password [ubnt]: ")
 subnet_ = raw_input("Enter subnet [192.168.1.0]: ")
@@ -12,7 +12,7 @@ subnet_ = raw_input("Enter subnet [192.168.1.0]: ")
 if url != '':
     url = url
 else:
-    url = "http://p01.hostifi.net:8080/inform"
+    url = "http://unifi.rappahannockit.com:8080/inform"
 
 if which_command != '':
     which_command = which_command
